@@ -8,7 +8,7 @@
 #define PATH_PIPE_LEN 11
 
 int main(int argc, char* argv[]){
-    char *writeBuffer = "Salut John!";
+    char *writeBuffer = "Hey, salut Bigard!";
     char readBuffer[100];
     int pid, fd[2];
     char namedPipe[2][PATH_PIPE_LEN];
@@ -26,23 +26,23 @@ int main(int argc, char* argv[]){
     }
     if(pid>0){
         close(0);
-        fd[0]=open(namedPipe[0],O_RDONLY);
-        if(fd[0]==-1){
+        fd[1]=open(namedPipe[1],O_RDONLY);
+        if(fd[1]==-1){
             perror("\nerreur open en lecture\n");
             exit(EXIT_FAILURE);
         }
         sleep(1);
-        read(fd[0],readBuffer,100);
-        printf("Bigard: %s\n",readBuffer);
+        read(fd[1],readBuffer,100);
+        printf("John: %s\n",readBuffer);
     }
     else{
         close(1);
-        fd[1] = open(namedPipe[1],O_WRONLY);
-        if(fd[1]==-1){
+        fd[0] = open(namedPipe[0],O_WRONLY);
+        if(fd[0]==-1){
             perror("\nerreur open en ecriture\n");
             exit(EXIT_FAILURE);
         }
-        write(fd[1],writeBuffer, strlen(writeBuffer));
+        write(fd[0],writeBuffer, strlen(writeBuffer));
     }
 
 
