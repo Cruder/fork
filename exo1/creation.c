@@ -24,8 +24,7 @@ void main(void) {
 
     FILE *file;
     file = fopen("PARAM", "w");
-    fwrite(str1, 1 , sizeof(str1), file);
-    fwrite("\n", 1, sizeof("\n"), file);
-    fwrite(str2, 1 , sizeof(str2), file);
-    fwrite("\n", 1, sizeof("\n"), file);
+    fprintf(file, "%s\n", str1);
+    fprintf(file, "%s\n", str2);
+    fclose(file);
 }

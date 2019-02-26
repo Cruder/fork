@@ -3,6 +3,7 @@
 #include <sys/shm.h>
 #include <stdlib.h>
 #include <errno.h>
+
 #define CLE 101
 
 void main(void) {
@@ -15,4 +16,9 @@ void main(void) {
 		exit(0);
 	}
 	printf("\nSHM id : %d\n", id);
+
+	FILE *file;
+	file = fopen("PARAM", "w");
+	fprintf(file, "%d", id);
+	fclose(file);
 }
