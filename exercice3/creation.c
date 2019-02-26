@@ -35,7 +35,7 @@ int main(int argc, char const *argv[]) {
   key_t key_sem;
   int id_sem;
 
-  key_sem = ftok("/tmp/sem", 3);
+  key_sem = ftok("/tmp/sem", 0);
   id_sem = semget(key_sem, 1, IPC_CREAT);
 
   // Print ID SHM

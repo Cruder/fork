@@ -4,11 +4,13 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/shm.h>
+#include <sys/sem.h>
 #include <sys/types.h>
 #include <unistd.h>
 
 int main(int argc, char const *argv[]) {
   int shmid = atoi(argv[1]);
+  int semid = atoi(argv[2]);
 
   FILE* file_f = fopen("F", "r");
 
@@ -34,6 +36,13 @@ int main(int argc, char const *argv[]) {
   }
 
   for(size_t i = 0; i < 3; ++i) {
+    struct sembuf sbuf = {
+      .sem_num = 0,
+      .sem_op = -1,
+      .sem_flg = 0
+    };
+    semop(semid, &sbuf, 1);
+
     int sum;
     memcpy(&sum, data + sizeof(int) * i, sizeof(sum));
 

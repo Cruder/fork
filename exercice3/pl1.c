@@ -24,14 +24,12 @@ int main(int argc, char const *argv[]) {
   read(fd, &a, sizeof(a));
   read(fd, &b, sizeof(a));
 
-  printf("%d - %d\n", a, b);
+  printf("%d + %d\n", a, b);
 
   close(fd);
   open(0, O_WRONLY);
 
   int shmid = atoi(argv[2]);
-
-  printf("shmid %d\n", shmid);
 
   void* data = shmat(shmid, (void *)0, 0);
   if (data == (void *)(-1)) {
@@ -50,7 +48,6 @@ int main(int argc, char const *argv[]) {
     .sem_flg = 0
   };
   semop(semid, &semopinc, 1);
-
 
   return 0;
 }
